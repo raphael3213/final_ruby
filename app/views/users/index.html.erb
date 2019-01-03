@@ -1,0 +1,11 @@
+<% provide(:title, 'All users') %>
+<h1>All users</h1>
+<ul class="users">
+	<% @users.each do |u|%>
+
+	<li><%= get_avatar u %>
+	<%= link_to u.name, user_path(u) %> 
+	<%= link_to "Delete",user_path(u),method:"delete"%>
+</li>
+	<%end%>
+</ul>
