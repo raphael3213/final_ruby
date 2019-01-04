@@ -3,6 +3,9 @@
 <aside class="col-md-4">
 <section class="user_info">
 <h1>
+	<%if @user.image %>
+	<%= image_tag(@user.image.url,size: "80x80")%>
+	<% end %>
 <%= get_avatar (@user) %>
 <%= @user.name %>
 

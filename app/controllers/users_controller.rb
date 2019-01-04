@@ -36,13 +36,16 @@ before_action :admin_user, only: :destroy
 
   def update
     @user=User.find(params[:id])
-    if @user.update_attributes(user_params)
-      flash.now[:success]="Profile Updated"
-      render 'show'
-    else
+
+      if  @user.update_attributes(user_params)
+          flash.now[:success]="Profile Updated"
+          render 'show'
+      else
 
       render 'edit'
-    end
+      end
+    
+    
   end
 
   def destroy
@@ -57,8 +60,11 @@ before_action :admin_user, only: :destroy
   private
   
   def user_params
-  params.require(:user).permit(:name,:email,:password,:password_confirmation)
+  params.require(:user).permit(:name,:email,:password,:password_confirmation,:image)
   end
+
+  
+
   
   def admin_user
     if current_user.admin?
