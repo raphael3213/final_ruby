@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
  
 before_action :admin_user, only: :destroy
-
-
+before_action :logged_in_user, only: [:edit,:update] 
+before_action :correct_user, only: [:edit,:update]
 
 
 
@@ -67,10 +67,37 @@ before_action :admin_user, only: :destroy
 
   
   def admin_user
+
+    if current_user.nil?
+      flash[:danger]="Please Log in"
+      redirect_to root_url
+      
+    
+  else
     if current_user.admin?
       current_user
     else
       flash[:danger]="Not an admin"
+      redirect_to root_url
+    end
+  end
+  end
+
+
+  def logged_in_user
+    if !logged_in?
+      flash[:danger]="Please Log in"
+      redirect_to root_url
+    end
+  end
+
+
+  def correct_user
+    @id_access=params[:id]
+    @id_curr=current_user.id
+
+    if @id_access != @id_curr
+      flash[:danger]="Access Restricted"
       redirect_to root_url
     end
   end
