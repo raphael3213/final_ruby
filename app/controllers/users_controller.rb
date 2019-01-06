@@ -93,7 +93,7 @@ before_action :correct_user, only: [:edit,:update]
 
 
   def correct_user
-    @id_access=params[:id]
+    @id_access=params[:id].to_i
     @id_curr=current_user.id
 
     if @id_access != @id_curr
