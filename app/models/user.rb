@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
 attr_accessor:remember_token
+has_many :blogs , dependent: :destroy
 has_attached_file :image,  default_url: "/images/:style/missing.png"
 validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
 before_save{self.email=email.downcase}
@@ -16,6 +17,9 @@ validates :password ,length:{minimum:6},allow_blank:true
 	end
 
 
+def feed
+	Blog.where("user_id = ?", id) # '?' used to preven sql injection attacks
+end
 	def User.new_token
 	SecureRandom.urlsafe_base64
 	end

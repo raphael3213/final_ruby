@@ -1,6 +1,24 @@
 
 <%= provide(:title,"Home") %>
 <div class="center jumbotron">
+
+<% if logged_in? %>
+<div class="row">
+<aside class="col-md-4">
+<section class="user_info">
+<%= render 'shared/user_info' %>
+</section>
+<section class="blog_form">
+<%= render 'shared/blog_form' %>
+</section>
+</aside>
+<div class="col-md-8">
+<h3>Blog Feed</h3>
+<%= render 'shared/feed' %>
+</div>
+</div>
+<% else %>
+
 <h1>Welcome to the Sample App</h1>
 <h2>
 This is the home page 
@@ -8,3 +26,4 @@ This is the home page
 <%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %>
 </div>
 <%= link_to image_tag("Ruby_on_Rails-logo.png", alt: "Rails logo"), 'https://rubyonrails.org/' %>
+<%end%>
