@@ -1,8 +1,11 @@
 <li id="blog-<%= blog.id %>">
 
+<%if blog.user.image %>
+	<%= image_tag(blog.user.image.url,size: "40x40")%>
+	<% end %>
 <span class="user"><%= link_to blog.user.name, blog.user %></span>
 
-<h2>Title:<%=blog.title%></h2>
+<h2 class="content">Title:<%=blog.title%></h2>
 <span class="content"><%= blog.content %></span>
 <span class="timestamp">
 Posted on <%=blog.created_at %> .
