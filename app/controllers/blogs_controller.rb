@@ -18,7 +18,16 @@ before_action :logged_in_user, only: [:create, :destroy]
 		@blog=current_user.blogs.find_by(id:params[:id])
 	end
 
-	def update
+	
+
+	def destroy
+		@blog.destroy
+	flash[:success] = "Blog deleted"
+redirect_to request.referrer || root_url
+	end
+
+
+def update
 		@user=current_user
 		@blog=@user.blogs.find_by(id:params[:id])
 		if @blog.update_attributes(blogs_params)
@@ -30,15 +39,6 @@ redirect_to root_url
 			redirect_to root_url
 		end
 	end
-
-	def destroy
-		@blog.destroy
-	flash[:success] = "Blog deleted"
-redirect_to request.referrer || root_url
-	end
-
-
-
 
 
 
